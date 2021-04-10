@@ -1,0 +1,2 @@
+[vpn_servers]
+n2  ansible_host=n2.music-tm.com    ansible_user=root   ansible_ssh_private_key_file=/mnt/c/Users/VMASHKOV/Dropbox/private/private_key.pk
