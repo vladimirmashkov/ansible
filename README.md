@@ -1,6 +1,9 @@
 # Prepare Server
 
 ```
+chmod 0640 /etc/sudoers && \
+echo "%wheel  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers && \
+chmod 0440 /etc/sudoers && \
 useradd -m vmashkov -G wheel && \
 usermod -aG wheel vmashkov && \
 usermod -aG root vmashkov && \
@@ -30,4 +33,11 @@ apt-add-repository -y ppa:ansible/ansible && \
 apt-get update -y && \
 apt-get upgrade -y  && \
 apt-get install -y ansible
+```
+```bash
+path_ansible_config=/etc/profile.d/ansible_config.sh
+echo "export ANSIBLE_CONFIG=/mnt/c/github/ansible/ansible.cfg" > $path_ansible_config
+chmod 0777 $path_ansible_config
+reboot
+echo ${ANSIBLE_CONFIG}
 ```

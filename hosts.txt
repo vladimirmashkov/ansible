@@ -1,2 +1,8 @@
-[vpn_servers]
-n2  ansible_host=n2.music-tm.com    ansible_user=root   ansible_ssh_private_key_file=/mnt/c/Users/VMASHKOV/Dropbox/private/private_key.pk
+[vpn_pretender]
+# 95.217.189.120
+45.126.126.191
+
+[vpn_frontend]
+
+[vpn_backend]
+

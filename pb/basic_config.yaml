@@ -1,0 +1,96 @@
+---
+- name: Install basic utilities
+  hosts: all
+  become: yes
+  
+  vars:
+    src_resolve   : /mnt/c/github/ansible/cfg/etc/resolv.conf
+    dst_resolve   : /etc/resolv.conf
+    src_nginx_dc  : /mnt/c/github/ansible/cfg/docker/nginx_docker-compose.yaml
+    dst_nginx_dc  : docker-compose.yaml
+
+  tasks:
+    - name: copy resolve file + docker-compose
+      copy: src={{src_resolve}} dest={{dst_resolve}} mode=0644
+      copy: src={{src_nginx_dc}} dest={{dst_nginx_dc}} mode=0644
+
+
+    # - name: Add repository
+    #   yum_repository:
+    #       name: epel
+    #       description: EPEL YUM repo
+    #       baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+    
+    # - name: Upgrade all packages
+    #   yum:
+    #     name: '*'
+    #     state: latest
+    
+    # - name: Install packages with special repo enabled
+    #   yum:
+    #     name: ntp, ntpdate, wget, mc, whois, net-tools, traceroute, mtr, sed, iptables-services, perl, unzip, perl-libwww-perl, perl-LWP-Protocol-https
+    #     enablerepo: "epel"
+
+    - name: Shell - Yum
+      shell: |
+        yum update -y && \
+        yum upgrade -y
+      ignore_errors: yes
+    
+    - name: Shell - Yum EPEL
+      shell: |
+        yum install -y epel-release && \
+        yum install -y --enablerepo=epel ntp ntpdate wget mc whois net-tools traceroute mtr sed && \
+        yum -y install --enablerepo=epel iptables-services wget perl unzip net-tools perl-libwww-perl perl-LWP-Protocol-https perl-GDGraph 
+      ignore_errors: yes
+
+
+    - name: Shell - setup timezone
+      shell: |
+        timedatectl set-timezone Europe/Moscow && \
+        ntpdate -s time.nist.gov && \
+        sed -i "s/SELINUX=permissive/SELINUX=disabled/g" /etc/selinux/config
+      ignore_errors: yes
+    
+    - name: Shell - Install 7zip
+      shell: |
+        wget https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/epel/7/x86_64/Packages/p/p7zip-16.02-10.el7.x86_64.rpm && \
+        wget https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/epel/7/x86_64/Packages/p/p7zip-plugins-16.02-10.el7.x86_64.rpm && \
+        rpm -U --quiet p7zip-16.02-10.el7.x86_64.rpm && \
+        rpm -U --quiet p7zip-plugins-16.02-10.el7.x86_64.rpm && \
+        rm -f p7zip-16.02-10.el7.x86_64.rpm && \
+        rm -f p7zip-plugins-16.02-10.el7.x86_64.rpm
+      ignore_errors: yes
+
+    - name: Shell - Docker
+      shell: |
+        yum install -y yum-utils && \
+        yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && \
+        yum install -y docker-ce docker-ce-cli containerd.io
+      ignore_errors: yes
+
+    - name: Shell - Install Docker Compose
+      shell: |
+        curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+        chmod +x /usr/local/bin/docker-compose && \
+        ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose && \
+        systemctl start docker && \
+        systemctl enable docker
+      ignore_errors: yes
+
+    - name: Shell Start NGINX
+      shell: |
+        systemctl restart docker && \
+        docker-compose up -d
+      ignore_errors: yes
+
+    
+
+    
+
+    
+
+    # - name: Setup Timezone
+    #   ansible.builtin.shell: curl --socks5 localhost:9000 http://www.ansible.com
+    #   args:
+    #     warn: no
