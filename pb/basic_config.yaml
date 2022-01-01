@@ -4,15 +4,21 @@
   become: yes
   
   vars:
-    src_resolve   : /mnt/c/github/ansible/cfg/etc/resolv.conf
-    dst_resolve   : /etc/resolv.conf
-    src_nginx_dc  : /mnt/c/github/ansible/cfg/docker/nginx_docker-compose.yaml
-    dst_nginx_dc  : docker-compose.yaml
+    src_resolve     : /mnt/c/github/ansible/cfg/etc/resolv.conf
+    dst_resolve     : /etc/resolv.conf
+    src_nginx_dc    : /mnt/c/github/ansible/cfg/docker/nginx_docker-compose.yaml
+    dst_nginx_dc    : docker-compose.yaml
+    src_config_ssh  : /mnt/c/github/ansible/cfg/home/config
+    dst_config_ssh  : .ssh/config
+    src_private_key : /home/vmashkov/.ssh/vmashkov.pk
+    dst_private_key : .ssh/id_rsa   
 
   tasks:
     - name: copy resolve file + docker-compose
       copy: src={{src_resolve}} dest={{dst_resolve}} mode=0644
       copy: src={{src_nginx_dc}} dest={{dst_nginx_dc}} mode=0644
+      copy: src={{src_config_ssh}} dest={{dst_config_ssh}} mode=0644
+      copy: src={{src_private_key}} dest={{dst_private_key}} mode=0644
 
 
     # - name: Add repository
