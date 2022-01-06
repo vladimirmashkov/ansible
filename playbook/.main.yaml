@@ -1,0 +1,3 @@
+---
+- import_playbook: 01.uploadFiles.yaml
+- import_playbook: 02.confugureOs.yaml

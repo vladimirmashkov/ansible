@@ -1,0 +1,17 @@
+---
+- name:   Upload files for Linux Debian
+  hosts:  vpn
+  become: yes
+
+  tasks:
+
+  - name: Creates directory ".uploadedFiles"
+    file:
+      path: ~/.uploadedFiles
+      state: directory
+  - name: Upload directory ".uploadedFiles"
+    copy:
+      src: ../.uploadedFiles/
+      dest: ~/.uploadedFiles
+      mode: 0777
+      

@@ -1,13 +1,19 @@
 # Ansible example exercising
 
-To check all servers
+## To check all servers
 
 ```shell
-ansible -m ping all
+ansible all -m ping
+ansible all -m setup
 ```
-or
-```cmd
-ansible -m setup all
+## Ad hoc command
 ```
+ansible all -m shell -a "ip a | grep \"inet .* brd .*\" && python --version"
+```
+
 ## Playbooks
+
+```ps
+ansible-playbook playbook/update.yaml
+```
 

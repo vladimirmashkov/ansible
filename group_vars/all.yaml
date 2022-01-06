@@ -1,0 +1,5 @@
+---
+ansible_user                    :   root
+ansible_ssh_private_key_file    :   /home/vmashkov/.ssh/vmashkov.pk
+home_dir                        :   /mnt/c/github/ansible
+

@@ -1,0 +1,8 @@
+---
+- name:   Upload files for Linux Debian
+  hosts:  vpn
+  become: yes
+
+  tasks:
+  - name: Execute the script
+    command: sh ~/.uploadedFiles/prepare_os.sh
