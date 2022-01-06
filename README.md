@@ -1,43 +1,13 @@
-# Prepare Server
+# Ansible example exercising
 
-```
-chmod 0640 /etc/sudoers && \
-echo "%wheel  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers && \
-chmod 0440 /etc/sudoers && \
-useradd -m vmashkov -G wheel && \
-usermod -aG wheel vmashkov && \
-usermod -aG root vmashkov && \
-mkdir -p -m 0644 /home/vmashkov/.ssh/ && \
-chmod 700 /home/vmashkov/.ssh/ && \
-touch /home/vmashkov/.ssh/authorized_keys && \
-curl "https://raw.githubusercontent.com/vladimirmashkov/key/master/vmashkov.pub"  --output vmashkov.pub && \
-cat vmashkov.pub > /home/vmashkov/.ssh/authorized_keys && \
-chmod 600 /home/vmashkov/.ssh/authorized_keys && \
-chown vmashkov:vmashkov /home/vmashkov/.ssh/ -R && \
-echo "vmashkov" | passwd vmashkov --stdin
-echo
-```
+To check all servers
 
-# Prepare for Ansible
-####CentOS 7
-```bash 
-yum install -y epel-release && \
-yum install -y update && \
-yum install -y upgrade && \
-yum install -y ansible
+```shell
+ansible -m ping all
 ```
+or
+```cmd
+ansible -m setup all
+```
+## Playbooks
 
-####Ubuntu
-```bash
-apt-add-repository -y ppa:ansible/ansible && \
-apt-get update -y && \
-apt-get upgrade -y  && \
-apt-get install -y ansible
-```
-```bash
-path_ansible_config=/etc/profile.d/ansible_config.sh
-echo "export ANSIBLE_CONFIG=/mnt/c/github/ansible/ansible.cfg" > $path_ansible_config
-chmod 0777 $path_ansible_config
-reboot
-echo ${ANSIBLE_CONFIG}
-```

@@ -1,7 +1,0 @@
-[vpn_pretender]
-103.195.6.244
-
-[vpn_frontend]
-
-[vpn_backend]
-
