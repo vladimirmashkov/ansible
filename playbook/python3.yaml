@@ -1,0 +1,25 @@
+---
+- name:   install python3
+  hosts:  85.90.246.201
+  become: yes
+
+  tasks:
+  # - block:
+  #   - apt:
+  #       name: python3
+  #       state: latest
+  #       update_cache: yes
+  #   when: ansible_python_version.split('.')[0]|int < 3
+
+  - block:
+    - shell: python3 --version
+      register: python_version
+  - name: The
+    debug:
+      msg: "{{ python_version.stdout }}"
+    
+
+
+
+
+# ansible all -m setup | grep ansible_python_version

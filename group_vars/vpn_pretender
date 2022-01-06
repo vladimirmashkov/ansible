@@ -1,3 +1,0 @@
----
-ansible_user                    :   vmashkov
-ansible_ssh_private_key_file    :   /home/vmashkov/.ssh/vmashkov.pk
