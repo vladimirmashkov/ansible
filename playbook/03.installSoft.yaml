@@ -1,0 +1,28 @@
+---
+- name:   Install software
+  hosts:  vpn
+  become: yes
+
+  tasks:
+  - block:
+    - apt: name={{ item }} state=latest allow_unauthenticated=yes
+      with_items:
+      - ntp
+      - ntpdate
+      - wget
+      - mc 
+      - whois
+      - net-tools
+      - traceroute
+      - sed
+      - p7zip-full
+      - perl
+      - unzip
+      - net-tools
+      - python3
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+      - mtr
+    when: ansible_os_family == "Debian"

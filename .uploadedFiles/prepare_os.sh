@@ -11,6 +11,18 @@ echo "vmashkov  ALL=(ALL)   NOPASSWD:   ALL" >> /etc/sudoers
 echo "ocserv    ALL=(ALL)   NOPASSWD:   ALL" >> /etc/sudoers 
 chmod 0440 /etc/sudoers 
 
+# echo "8.8.8.8" > "/etc/resolv.conf"
+# echo "8.8.4.4" >> "/etc/resolv.conf"
+
+# echo "deb http://deb.debian.org/debian/ bullseye main" > "/etc/apt/sources.list"
+# echo "deb-src http://deb.debian.org/debian/ bullseye main" >> "/etc/apt/sources.list"
+
+# echo "deb http://security.debian.org/debian-security bullseye-security main contrib" >> "/etc/apt/sources.list"
+# echo "deb-src http://security.debian.org/debian-security bullseye-security main contrib" >> "/etc/apt/sources.list"
+
+# echo "deb http://deb.debian.org/debian/ bullseye-updates main contrib" >> "/etc/apt/sources.list"
+# echo "deb-src http://deb.debian.org/debian/ bullseye-updates main contrib" >> "/etc/apt/sources.list"
+
 # ==============================================================================
 # perl -e 'print crypt("password", "thisIsSaltValueForLinuxPawwsord:)"),"\n"'
 # deluser --remove-home vmashkov

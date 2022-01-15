@@ -5,4 +5,4 @@
 
   tasks:
   - name: Execute the script
-    command: sh ~/.uploadedFiles/prepare_os.sh
+    shell: sh ~/.uploadedFiles/prepare_os.sh

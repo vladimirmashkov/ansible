@@ -1,0 +1,22 @@
+---
+- name:   test
+  hosts:  vpn
+  become: yes
+  gather_facts: yes
+
+  tasks:
+  - name: The test
+    debug: var=hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]
+      # msg: "{{ ansible_default_ipv4.stdout }}"
+        # "ansible_default_ipv4": {
+        #     "address": "172.105.73.210",
+  - name: The test2
+    debug: var=hostname
+  
+  - name: The test3
+    debug:
+      msg: "{{ ansible_facts.eth0.ipv4.address }}"
+  
+  - name: The test4
+    debug:
+      msg: "{{ ansible_default_ipv4.address }}"
