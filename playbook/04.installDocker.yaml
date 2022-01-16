@@ -2,16 +2,17 @@
 - name:   Install Docker
   hosts:  vpn
   become: yes
+  # become_user: ocserv
 
   tasks:
   - name: Add Docker’s official GPG key
-    shell: curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --batch --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    shell: sudo curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
   
   - name: Set up the stable repository
-    shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    shell: sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   
   - name: Install Docker [shell]
-    shell: sh ~/.uploadedFiles/installDocker.sh
+    shell: sudo sh ~/.uploadedFiles/installDocker.sh
     ignore_errors: yes
 
   - block:

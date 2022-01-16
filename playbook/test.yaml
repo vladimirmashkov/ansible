@@ -3,6 +3,8 @@
   hosts:  vpn
   become: yes
   gather_facts: yes
+  become_user: ocserv
+  # remote_user: ocserv
 
   tasks:
   - name: The test
@@ -20,3 +22,9 @@
   - name: The test4
     debug:
       msg: "{{ ansible_default_ipv4.address }}"
+  
+  - name: The user
+    # become: true
+    # become_user: ocserv
+    # remote_user: ocserv
+    shell:  whoami && pwd

@@ -1,0 +1,12 @@
+---
+- name:   config files
+  hosts:  vpn
+  become: yes
+
+  tasks:
+  - name: copy Uploaded Files
+    shell: cp -R ~/.uploadedFiles /home/ocserv
+
+  - name: change owner Uploaded Files
+    shell: chown -R ocserv:ocserv /home/ocserv/.uploadedFiles
+    

@@ -2,16 +2,17 @@
 - name:   Install CSF
   hosts:  vpn
   become: yes
+  become_user: ocserv
 
   tasks:
   - name: Download csf
-    shell:  wget https://download.configserver.com/csf.tgz -P /opt
+    shell: sudo wget https://download.configserver.com/csf.tgz -P /opt
   
   - name: Extract csf
-    shell:  tar -xvzf /opt/csf.tgz -C /opt 
+    shell:  sudo tar -xvzf /opt/csf.tgz -C /opt 
 
   - name: disable and stop firewalld
-    shell:  systemctl disable firewalld && systemctl stop firewalld
+    shell:  sudo systemctl disable firewalld && sudo systemctl stop firewalld
     ignore_errors: yes
 
   - name: set global_ip for cfs

@@ -2,6 +2,7 @@
 - name:   config files
   hosts:  vpn
   become: yes
+  become_user: ocserv
 
   tasks:
   - name: config files
