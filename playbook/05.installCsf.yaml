@@ -4,15 +4,15 @@
   become: yes
 
   tasks:
-  # - name: Download csf
-  #   shell:  wget https://download.configserver.com/csf.tgz -P /opt
+  - name: Download csf
+    shell:  wget https://download.configserver.com/csf.tgz -P /opt
   
-  # - name: Extract csf
-  #   shell:  tar -xvzf /opt/csf.tgz -C /opt 
+  - name: Extract csf
+    shell:  tar -xvzf /opt/csf.tgz -C /opt 
 
-  # - name: disable and stop firewalld
-  #   shell:  systemctl disable firewalld && systemctl stop firewalld
-  #   ignore_errors: yes
+  - name: disable and stop firewalld
+    shell:  systemctl disable firewalld && systemctl stop firewalld
+    ignore_errors: yes
 
-  - name: get global_ip
+  - name: set global_ip for cfs
     shell: sed -i "s/<global_ip>/{{ ansible_default_ipv4.address }}/g" ~/.uploadedFiles/csfpre.sh

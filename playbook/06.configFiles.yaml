@@ -1,0 +1,17 @@
+---
+- name:   config files
+  hosts:  vpn
+  become: yes
+
+  tasks:
+  - name: config files
+    shell: sed -i "s/<vpn_domain_name>/{{ hostname }}/g" ~/.uploadedFiles{{ item }}
+    with_items:
+    - "/cert_get_new.sh"
+    - "/cert_renew.sh"
+    - "/docker-compose.yaml"
+    - "/test.sh"
+    - "/docker_ocserv.sh"
+  
+  - name: set global_ip for cfs
+    shell: sed -i "s/<global_ip>/{{ ansible_default_ipv4.address }}/g" ~/.uploadedFiles/csfpre.sh
