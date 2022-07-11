@@ -1,0 +1,16 @@
+---
+- name:   configure server for vmashkov
+  hosts:  lab
+  become: yes
+
+  vars:
+    #src_private_key : /mnt/c/Users/VMASHKOV/YandexDisk/.git/safe/keys/vmashkov.pk
+    src_private_key : /home/vmashkov/.ssh/vmashkov.pk
+    dst_private_key : .ssh/id_rsa
+
+
+  # tasks:
+  # - block:
+  #   - name: copy private key
+  #     copy: src={{src_private_key}} dest={{dst_private_key}} mode=0644
+    # when: ansible_os_family == "Debian"
