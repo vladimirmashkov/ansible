@@ -1,16 +1,45 @@
 ---
 - name:   configure server for vmashkov
-  hosts:  lab
+  hosts:  new
   become: yes
+  gather_facts: true
 
   vars:
     #src_private_key : /mnt/c/Users/VMASHKOV/YandexDisk/.git/safe/keys/vmashkov.pk
     src_private_key : /home/vmashkov/.ssh/vmashkov.pk
-    dst_private_key : .ssh/id_rsa
+    dst_private_key : /home/vmashkov/.ssh/id_rsa
+    src_public_key : /home/vmashkov/ansible/files/vmashkov.pub
+    dst_public_key : /home/vmashkov/.ssh/authorized_keys
+ 
+  tasks:
+    - name: Add the user
+      ansible.builtin.user:
+        name: johnd
+        comment: John Doe
+        uid: 1040
+        group: sudo
+
+    # - name:   create user dir
+      # shell:  "useradd -m vmashkov"
+      # shell:  "mkdir -p -m 0644 /home/vmashkov/.ssh/"
+      # shell:  "chmod 700 /home/vmashkov/.ssh/"
+
+      # - name:   copy files
+      #   copy:   src={{src_private_key}} dest={{dst_private_key}} mode=0600
+      #   copy:   src={{src_public_key}} dest={{dst_public_key}} mode=0600
+      
+      # - name:   change owner for dir
+      #   file:   dest=/home/vmashkov/.ssh owner=vmashkov group=vmashkov recurse=yes
+        # shell:  chown vmashkov:vmashkov /home/vmashkov/.ssh/ -R
+      #   # shell:  "echo "vmashkov" | passwd vmashkov --stdin"
+      #   shell:  "ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts"
 
 
-  # tasks:
-  # - block:
-  #   - name: copy private key
-  #     copy: src={{src_private_key}} dest={{dst_private_key}} mode=0644
-    # when: ansible_os_family == "Debian"
+
+
+    # - name: copy private key
+    #   copy: src={{src_private_key}} dest={{dst_private_key}} mode=0644
+    # - name: Gen hosts  
+    #   shell:  "ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts"
+    #   shell:  "cat /etc/ssh/ssh_known_hosts ~/"
+    #   shell:  "cat /etc/ssh/ssh_known_hosts ~/"
